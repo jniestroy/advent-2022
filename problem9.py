@@ -23,8 +23,9 @@ def move_t(h,t):
         t[1] = t[1] + y
     return t
 
-rope = [0,0] * 10
+rope = [[0,0]] * 10
 coords = set()
+coords2 = set()
 for move in a:
     direction, distance = move.replace('\n','').split(' ')
     distance = int(distance)
@@ -39,26 +40,12 @@ for move in a:
     for step in range(distance):
         h_coord = [int(h_coord[i] + vec[i]) for i in range(2)]
         t_coord = move_t(h_coord,t_coord)
-        coords.add(tuple(t_coord))
-print(len(coords))
-
-rope = [[0,0]] * 10
-coords = set()
-for move in a:
-    direction, distance = move.replace('\n','').split(' ')
-    distance = int(distance)
-    if direction == 'R':
-        vec = (1,0)
-    elif direction == 'U':
-        vec = (0,1)
-    elif direction == 'L':
-        vec = (-1,0)
-    else:
-        vec = (0,-1)
-    for step in range(distance):
         rope[0] = [int(rope[0][i] + vec[i]) for i in range(2)]
         for i in range(1,10):
             rope[i] = move_t(deepcopy(rope[i - 1]),deepcopy(rope[i]))
-        coords.add(tuple(rope[9]))
+        coords2.add(tuple(rope[9]))
+        coords.add(tuple(t_coord))
 print(len(coords))
+print(len(coords2))
+
 
